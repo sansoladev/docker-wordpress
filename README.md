@@ -10,7 +10,7 @@ $ docker-compose down --volumes
 ```
 
 ```
-version: '3'
+version: "3"
 
 services:
   # Database
@@ -33,10 +33,12 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - '8080:80'
+      - "8080:80"
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: password 
+      MYSQL_ROOT_PASSWORD: password
+      volumes:
+        - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
       - wpsite
   # Wordpress
@@ -45,9 +47,11 @@ services:
       - db
     image: wordpress:latest
     ports:
-      - '8000:80'
+      - "8000:80"
     restart: always
-    volumes: ['./:/var/www/html']
+    volumes:
+      - ./:/var/www/html
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
