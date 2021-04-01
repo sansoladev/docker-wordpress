@@ -37,8 +37,8 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: password
-      volumes:
-        - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    volumes:
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
       - wpsite
   # Wordpress
